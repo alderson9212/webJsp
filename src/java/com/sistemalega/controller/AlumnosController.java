@@ -99,7 +99,6 @@ public class AlumnosController extends HttpServlet {
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
         List<Materia> listaMaterias = new MateriasDao().listarMaterias();
         request.setAttribute("lista", listaMaterias);

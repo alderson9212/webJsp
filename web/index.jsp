@@ -24,18 +24,10 @@
         <script>
             function info(estado) {
             console.log(estado);        
-        var x = document.getElementsByClassName("hide");
-                
-                switch (estado) {
-                    case null:
-                        console.log('sissss');
-                        x[0].style.display = "none";
-                        break;
-                    case 'd' :
-                        x[0].style.display = "block";
-                        break;
+                if(estado != ''){
+                    alert(estado);
                 }
-
+               alert(estado);
             }
         </script>
         <title>JSP Page</title>
@@ -58,13 +50,12 @@
                 <br>
 
                 <table border="0" align="center">
-                    <tr>
-                        <td><input type="submit" value="Send"  name="agregar"></td>	
+                    <tr >
+                        <td><input type="submit" value="Send"  name="agregar" onclick="info('<%= request.getAttribute("error")%>') ></td>	
                     </tr>
+                    
 
             </form>   
         </div>
-        <button type="button" class="mas-info" onclick="info(<%= request.getAttribute("error")%>)" >Mas Info +</button>
-        <p class="hide"><%= request.getAttribute("error")%></p>
     </body>
 </html>

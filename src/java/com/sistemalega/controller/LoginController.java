@@ -46,8 +46,7 @@ public class LoginController extends HttpServlet {
                     String username = request.getParameter("username");
                     String password = request.getParameter("password");
                     if (username.equals("root") && password.equals("root")) {
-
-                        principal(request, response);
+                           principal(request, response);
                     } else {
                         index(request, response);
                     }
