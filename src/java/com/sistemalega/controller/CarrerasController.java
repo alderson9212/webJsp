@@ -5,12 +5,13 @@
  */
 package com.sistemalega.controller;
 
-import com.sistemalega.dao.AlumnosDao;
 import com.sistemalega.dao.CarrerasDao;
-import com.sistemalega.modelo.Alumno;
+import com.sistemalega.dao.MateriasDao;
+import com.sistemalega.dao.UniversidadesDao;
 import com.sistemalega.modelo.Carrera;
+import com.sistemalega.modelo.Materia;
+import com.sistemalega.modelo.Universidad;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -19,7 +20,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.taglibs.standard.tag.el.core.OutTag;
 
 /**
  *
@@ -51,7 +51,6 @@ public class CarrerasController extends HttpServlet {
                     index(request, response);
                     break;
                 case "formregister":
-                    System.out.println("Legoofsdfodjf");
                     nuevo(request, response);
                     break;
                 case "save":
@@ -103,6 +102,9 @@ public class CarrerasController extends HttpServlet {
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Carreras/metodos/registro.jsp");
+        List<Universidad>listaUniversidad = new UniversidadesDao().listarUniversidades();
+        System.out.println("Lista universidad tamaño:"+listaUniversidad.size());
+        request.setAttribute("lista",listaUniversidad);
         dispatcher.forward(request, response);
     }
 
@@ -119,6 +121,8 @@ public class CarrerasController extends HttpServlet {
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Carrera carrera = carrerasDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("carrera", carrera);
+         List<Materia> listaMaterias = new MateriasDao().listarMaterias();
+        request.setAttribute("lista", listaMaterias);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Carreras/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }

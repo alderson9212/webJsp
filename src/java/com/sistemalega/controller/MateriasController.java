@@ -6,8 +6,10 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.GruposDao;
 import com.sistemalega.dao.MateriasDao;
 import com.sistemalega.modelo.Alumno;
+import com.sistemalega.modelo.Grupo;
 import com.sistemalega.modelo.Materia;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,13 +59,11 @@ public class MateriasController extends HttpServlet {
                     save(request, response);
                     break;
 
-                case "showedit":
-                    System.out.println("accediooooooooooooooooo");
+                case "showedit":                    
                     showEditar(request, response);
                     break;
 
                 case "edit":
-                    System.out.println("accediooooooooooooooooo edit");
                     editar(request, response);
                     break;
 
@@ -101,6 +101,8 @@ public class MateriasController extends HttpServlet {
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Materias/metodos/registro.jsp");
+        List<Grupo>listaGrupos = new GruposDao().listarGrupos();
+        request.setAttribute("lista",listaGrupos);
         dispatcher.forward(request, response);
     }
 
@@ -116,6 +118,8 @@ public class MateriasController extends HttpServlet {
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Materia materia = materiasDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("materia",materia);
+        List<Grupo>listaGrupos = new GruposDao().listarGrupos();
+        request.setAttribute("lista",listaGrupos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Materias/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }

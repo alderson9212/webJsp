@@ -6,8 +6,10 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.GradosDao;
 import com.sistemalega.dao.GruposDao;
 import com.sistemalega.modelo.Alumno;
+import com.sistemalega.modelo.Grado;
 import com.sistemalega.modelo.Grupo;
 import com.sun.tools.xjc.api.Mapping;
 import java.io.IOException;
@@ -51,9 +53,9 @@ public class GruposController extends HttpServlet {
                 case "index":
                     index(request, response);
                     break;
-                case "formregister":                    
+                case "formregister":
                     nuevo(request, response);
-                    break;                    
+                    break;
                 case "save":
                     save(request, response);
                     break;
@@ -102,6 +104,8 @@ public class GruposController extends HttpServlet {
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grupos/metodos/registro.jsp");
+        List<Grado> listaGrados = new GradosDao().listarGrados();
+        request.setAttribute("lista", listaGrados);
         dispatcher.forward(request, response);
     }
 
@@ -117,6 +121,8 @@ public class GruposController extends HttpServlet {
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Grupo grupo = gruposDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("grupo", grupo);
+        List<Grado> listaGrados = new GradosDao().listarGrados();
+        request.setAttribute("lista", listaGrados);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grupos/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }

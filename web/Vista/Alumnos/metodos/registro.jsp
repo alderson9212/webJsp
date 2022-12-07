@@ -21,7 +21,7 @@
                     <td>Id Materia:</a></td>
 
                     <td>
-                        <select>
+                        <select name="idmateria">
                             <c:forEach var="materia" items="${lista}">
                                 <option><c:out value="${materia.id}"/></option>
                             </c:forEach>

@@ -6,8 +6,10 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.CarrerasDao;
 import com.sistemalega.dao.GradosDao;
 import com.sistemalega.modelo.Alumno;
+import com.sistemalega.modelo.Carrera;
 import com.sistemalega.modelo.Grado;
 import com.sun.tools.xjc.api.Mapping;
 import java.io.IOException;
@@ -103,6 +105,8 @@ public class GradosController extends HttpServlet {
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grados/metodos/registro.jsp");
+        List<Carrera>listaCarreras = new CarrerasDao().listarCarreras();
+        request.setAttribute("lista",listaCarreras);
         dispatcher.forward(request, response);
     }
 
@@ -118,6 +122,8 @@ public class GradosController extends HttpServlet {
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Grado grado = gradosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("grado", grado);
+        List<Carrera>listaCarreras = new CarrerasDao().listarCarreras();
+        request.setAttribute("lista",listaCarreras);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grados/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }
