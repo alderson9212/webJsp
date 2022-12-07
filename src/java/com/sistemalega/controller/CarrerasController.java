@@ -6,7 +6,9 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.CarrerasDao;
 import com.sistemalega.modelo.Alumno;
+import com.sistemalega.modelo.Carrera;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -26,7 +28,7 @@ import org.apache.taglibs.standard.tag.el.core.OutTag;
 @WebServlet("/carreras")
 public class CarrerasController extends HttpServlet {
 
-    AlumnosDao alumnosDao = new AlumnosDao();
+    CarrerasDao carrerasDao = new CarrerasDao();
 
     public CarrerasController() {
     }
@@ -53,6 +55,7 @@ public class CarrerasController extends HttpServlet {
                     nuevo(request, response);
                     break;
                 case "save":
+                    System.out.println("Guardando");
                     save(request, response);
                     break;
 
@@ -92,65 +95,46 @@ public class CarrerasController extends HttpServlet {
     }
 
     private void principal(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/alumnosPrincipal.jsp");
-        List<Alumno> listaArticulos = alumnosDao.listarAlumnos();
-        request.setAttribute("lista", listaArticulos);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Carreras/carrerasPrincipal.jsp");
+        List<Carrera> listaCarrera = carrerasDao.listarCarreras();
+        request.setAttribute("lista", listaCarrera);
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Carreras/metodos/registro.jsp");
         dispatcher.forward(request, response);
     }
 
     private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno alumno = new Alumno(Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idmateria")),
-                request.getParameter("username"),
+        Carrera carrera = new Carrera(Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("iduniversidad")),
                 request.getParameter("nombre"),
-                request.getParameter("appaterno"),
-                request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
-        boolean bandera = alumnosDao.nuevo(alumno);
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Servlet InicioServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Servlet InicioServlet at " + request.getContextPath() + "</h1>");
-        out.println("</body>");
-        out.println("<button click=\"www.google.com\">hola</button>");
-        
-        out.println("</html>");
-        
-        
-        //nuevo(request, response);
+                
+        boolean bandera = carrerasDao.nuevo(carrera);
+        principal(request, response);                
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno articulo = alumnosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("alumno", articulo);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/editar.jsp");
+        Carrera carrera = carrerasDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("carrera", carrera);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Carreras/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Alumno alumno = new Alumno(Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idmateria")),
-                request.getParameter("username"),
+        Carrera carrera = new Carrera(Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("iduniversidad")),
                 request.getParameter("nombre"),
-                request.getParameter("appaterno"),
-                request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
-        alumnosDao.actualizar(alumno);
+        carrerasDao.actualizar(carrera);
         principal(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        alumnosDao.eliminar(id);
+        carrerasDao.eliminar(id);
         principal(request, response);
     }
 }

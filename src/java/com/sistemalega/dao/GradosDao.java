@@ -49,7 +49,7 @@ public class GradosDao {
     }
 
     // listar todos grados
-    public List<Grado> listarAlumnos() throws SQLException {
+    public List<Grado> listarGrados() throws SQLException {
         con = conexion.conector();
         List<Grado> listaGrados = new ArrayList<Grado>();
         String sql = "SELECT * FROM t_grados";

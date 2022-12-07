@@ -31,7 +31,7 @@ public class CarrerasDao {
         con = conexion.conector();
         boolean bandera = false;
         try {
-             String sql = "INSERT INTO t_carrerass VALUES(?,?,?,?)";
+             String sql = "INSERT INTO t_carreras VALUES(?,?,?,?)";
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, carrera.getId());
             statement.setInt(2, carrera.getIdUniversidad());

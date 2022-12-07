@@ -6,8 +6,9 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.MateriasDao;
 import com.sistemalega.modelo.Alumno;
-import com.sun.tools.xjc.api.Mapping;
+import com.sistemalega.modelo.Materia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,7 +19,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.taglibs.standard.tag.el.core.OutTag;
 
 /**
  *
@@ -27,7 +27,7 @@ import org.apache.taglibs.standard.tag.el.core.OutTag;
 @WebServlet("/materias")
 public class MateriasController extends HttpServlet {
 
-    AlumnosDao alumnosDao = new AlumnosDao();
+    MateriasDao materiasDao = new MateriasDao();
 
     public MateriasController() {
     }
@@ -93,65 +93,45 @@ public class MateriasController extends HttpServlet {
     }
 
     private void principal(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/alumnosPrincipal.jsp");
-        List<Alumno> listaArticulos = alumnosDao.listarAlumnos();
-        request.setAttribute("lista", listaArticulos);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Materias/materiasPrincipal.jsp");
+        List<Materia> listaMaterias = materiasDao.listarMaterias();
+        request.setAttribute("lista", listaMaterias);
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Materias/metodos/registro.jsp");
         dispatcher.forward(request, response);
     }
 
     private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno alumno = new Alumno(Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idmateria")),
-                request.getParameter("username"),
+        Materia materia = new Materia(Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("idgrupo")),
                 request.getParameter("nombre"),
-                request.getParameter("appaterno"),
-                request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
-        boolean bandera = alumnosDao.nuevo(alumno);
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Servlet InicioServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Servlet InicioServlet at " + request.getContextPath() + "</h1>");
-        out.println("</body>");
-        out.println("<button click=\"www.google.com\">hola</button>");
-        
-        out.println("</html>");
-        
-        
-        //nuevo(request, response);
+        boolean bandera = materiasDao.nuevo(materia);
+        principal(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno articulo = alumnosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("alumno", articulo);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/editar.jsp");
+        Materia materia = materiasDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("materia",materia);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Materias/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Alumno alumno = new Alumno(Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idmateria")),
-                request.getParameter("username"),
+        Materia materia = new Materia(Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("idgrupo")),
                 request.getParameter("nombre"),
-                request.getParameter("appaterno"),
-                request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
-        alumnosDao.actualizar(alumno);
+        materiasDao.actualizar(materia);
         principal(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        alumnosDao.eliminar(id);
+        materiasDao.eliminar(id);
         principal(request, response);
     }
 }

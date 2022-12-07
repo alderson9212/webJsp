@@ -14,7 +14,7 @@
                 align-content: center;
                 text-align: center;
             }
-            
+
             .div_center h1{
                 text-align: center;
             }
@@ -23,14 +23,16 @@
     </head>
     <body>
         <div class="div_center">
-        <h1>PANEL DE ADMINSTRACION</h1>
-        <br>
-        <a href="principal?action=alumnos">Alumnos</a><br>
-        <a href="principal?action=carreras">Carreras</a><br>
-        <a>Grados</a><br>
-        <a>Grupos</a><br>
-        <a>Materias</a><br>
-        <a>Universiades</a>
-     </div>       
+            <h1>PANEL DE ADMINSTRACION</h1>
+            <br>
+            <a href="principal?action=alumnos">Alumnos</a><br>
+            <a href="principal?action=carreras">Carreras</a><br>
+            <a href="principal?action=grados">Grados</a><br>
+            <a href="principal?action=grupos">Grupos</a><br>
+            <a href="principal?action=materias">Materias</a><br>
+            <a href="principal?action=universidades">Universidades</a><br>
+            
+          
+        </div>       
     </body>
 </html>

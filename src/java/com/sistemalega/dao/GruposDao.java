@@ -48,7 +48,7 @@ public class GruposDao {
     }
 
     // listar todos grupos
-    public List<Grupo> listarAlumnos() throws SQLException {
+    public List<Grupo> listarGrupos() throws SQLException {
         con = conexion.conector();
         List<Grupo> listaGrupos = new ArrayList<Grupo>();
         String sql = "SELECT * FROM t_grupos";

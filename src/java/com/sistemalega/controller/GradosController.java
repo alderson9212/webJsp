@@ -6,7 +6,9 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.GradosDao;
 import com.sistemalega.modelo.Alumno;
+import com.sistemalega.modelo.Grado;
 import com.sun.tools.xjc.api.Mapping;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +29,7 @@ import org.apache.taglibs.standard.tag.el.core.OutTag;
 @WebServlet("/grados")
 public class GradosController extends HttpServlet {
 
-    AlumnosDao alumnosDao = new AlumnosDao();
+    GradosDao gradosDao = new GradosDao();
 
     public GradosController() {
     }
@@ -93,65 +95,45 @@ public class GradosController extends HttpServlet {
     }
 
     private void principal(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/alumnosPrincipal.jsp");
-        List<Alumno> listaArticulos = alumnosDao.listarAlumnos();
-        request.setAttribute("lista", listaArticulos);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grados/gradosPrincipal.jsp");
+        List<Grado> listaGrados = gradosDao.listarGrados();
+        request.setAttribute("lista", listaGrados);
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grados/metodos/registro.jsp");
         dispatcher.forward(request, response);
     }
 
     private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno alumno = new Alumno(Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idmateria")),
-                request.getParameter("username"),
+        Grado grado = new Grado(Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("idcarrera")),
                 request.getParameter("nombre"),
-                request.getParameter("appaterno"),
-                request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
-        boolean bandera = alumnosDao.nuevo(alumno);
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Servlet InicioServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Servlet InicioServlet at " + request.getContextPath() + "</h1>");
-        out.println("</body>");
-        out.println("<button click=\"www.google.com\">hola</button>");
-        
-        out.println("</html>");
-        
-        
-        //nuevo(request, response);
+        boolean bandera = gradosDao.nuevo(grado);
+        principal(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno articulo = alumnosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("alumno", articulo);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/editar.jsp");
+        Grado grado = gradosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("grado", grado);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grados/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Alumno alumno = new Alumno(Integer.parseInt(request.getParameter("id")),
-                Integer.parseInt(request.getParameter("idmateria")),
-                request.getParameter("username"),
+        Grado grado = new Grado(Integer.parseInt(request.getParameter("id")),
+                Integer.parseInt(request.getParameter("idcarrera")),
                 request.getParameter("nombre"),
-                request.getParameter("appaterno"),
-                request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
-        alumnosDao.actualizar(alumno);
+        gradosDao.actualizar(grado);
         principal(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        alumnosDao.eliminar(id);
+        gradosDao.eliminar(id);
         principal(request, response);
     }
 }

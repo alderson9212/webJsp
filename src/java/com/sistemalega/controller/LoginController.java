@@ -46,14 +46,6 @@ public class LoginController extends HttpServlet {
                     String username = request.getParameter("username");
                     String password = request.getParameter("password");
                     if (username.equals("root") && password.equals("root")) {
-                        Context ctx = new InitialContext();
-                        DataSource ds = (DataSource) ctx.lookup("jdbc_oracle");
-                        Connection cn = ds.getConnection();
-                        Statement st = cn.createStatement();
-                        ResultSet rs = st.executeQuery("SELECT * FROM t_alumnos");
-                        while (rs.next()) {
-                            System.out.println("nombre:" + rs.getString(1));
-                        }
 
                         principal(request, response);
                     } else {
@@ -66,8 +58,6 @@ public class LoginController extends HttpServlet {
             }
         } catch (SQLException e) {
             e.getStackTrace();
-        } catch (NamingException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -84,6 +74,7 @@ public class LoginController extends HttpServlet {
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         //mostrar(request, response);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        request.setAttribute("error", "credenciales incorrectas");
         dispatcher.forward(request, response);
     }
 

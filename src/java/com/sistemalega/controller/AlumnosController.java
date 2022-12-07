@@ -6,7 +6,9 @@
 package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
+import com.sistemalega.dao.MateriasDao;
 import com.sistemalega.modelo.Alumno;
+import com.sistemalega.modelo.Materia;
 import com.sun.tools.xjc.api.Mapping;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,7 +52,6 @@ public class AlumnosController extends HttpServlet {
                     index(request, response);
                     break;
                 case "formregister":
-                    System.out.println("Legoofsdfodjf");
                     nuevo(request, response);
                     break;
                 case "save":
@@ -58,12 +59,10 @@ public class AlumnosController extends HttpServlet {
                     break;
 
                 case "showedit":
-                    System.out.println("accediooooooooooooooooo");
                     showEditar(request, response);
                     break;
 
                 case "edit":
-                    System.out.println("accediooooooooooooooooo edit");
                     editar(request, response);
                     break;
 
@@ -94,13 +93,16 @@ public class AlumnosController extends HttpServlet {
 
     private void principal(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/alumnosPrincipal.jsp");
-        List<Alumno> listaArticulos = alumnosDao.listarAlumnos();
-        request.setAttribute("lista", listaArticulos);
+        List<Alumno> listAlumnos = alumnosDao.listarAlumnos();
+        request.setAttribute("lista", listAlumnos);
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/registro.jsp");
+        List<Materia> listaMaterias = new MateriasDao().listarMaterias();
+        request.setAttribute("lista", listaMaterias);
         dispatcher.forward(request, response);
     }
 
@@ -113,26 +115,14 @@ public class AlumnosController extends HttpServlet {
                 request.getParameter("apmaterno"),
                 request.getParameter("estatus"));
         boolean bandera = alumnosDao.nuevo(alumno);
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Servlet InicioServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Servlet InicioServlet at " + request.getContextPath() + "</h1>");
-        out.println("</body>");
-        out.println("<button click=\"www.google.com\">hola</button>");
-        
-        out.println("</html>");
-        
-        
-        //nuevo(request, response);
+        principal(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Alumno articulo = alumnosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("alumno", articulo);
+        Alumno alumno = alumnosDao.obtenerPorId(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("alumno", alumno);
+        List<Materia> listaMaterias = new MateriasDao().listarMaterias();
+        request.setAttribute("lista", listaMaterias);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Alumnos/metodos/editar.jsp");
         dispatcher.forward(request, response);
     }

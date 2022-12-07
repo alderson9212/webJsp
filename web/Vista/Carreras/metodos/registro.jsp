@@ -4,37 +4,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Registrar Alumno</title>
+<title>Registrar Carrera</title>
 </head>
 <body>
-	<h1>Registrar Alumno</h1>
-	<form action="alumnos?action=save" method="post">
+	<h1>Registrar Carrera</h1>
+	<form action="carreras?action=save" method="post">
 		<table border="1" align="center">
 		<tr>
 			<td>Id:</a></td>		
 			<td><input type="text" name="id"/></td>	
 		</tr>
                 <tr>
-			<td>Id Materia:</a></td>		
-			<td><input type="text" name="idmateria"/></td>	
-		</tr>
-		<tr>
-			<td>Username:</a></td>		
-			<td><input type="text" name="username"/></td>	
+			<td>Id Universidad:</a></td>		
+			<td><input type="text" name="iduniversidad"/></td>	
 		</tr>
 		<tr>
 			<td>Nombre:</a></td>		
 			<td><input type="text" name="nombre"/></td>	
 		</tr>
-		<tr>
-			<td>Apellido Paterno:</a></td>		
-			<td><input type="text" name="appaterno"/></td>	
-		</tr>
-		<tr>
-			<td>Apellido Materno:</a></td>		
-			<td><input type="text" name="apmaterno"/></td>	
-		</tr>
-                
                 <tr>
 			<td>Estatus:</a></td>		
 			<td><input type="text" name="estatus"/></td>	

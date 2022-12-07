@@ -53,6 +53,7 @@ public class AlumnosDao {
     // listar todos alumnos
     public List<Alumno> listarAlumnos() throws SQLException {
         con = conexion.conector();
+        System.out.println("si llegf<");
         List<Alumno> listaAlumnos = new ArrayList<Alumno>();
         String sql = "SELECT * FROM t_alumnos";
         Statement statement = con.createStatement();

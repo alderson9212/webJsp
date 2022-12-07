@@ -7,8 +7,16 @@ package com.sistemalega.controller;
 
 import com.sistemalega.dao.AlumnosDao;
 import com.sistemalega.dao.CarrerasDao;
+import com.sistemalega.dao.GradosDao;
+import com.sistemalega.dao.GruposDao;
+import com.sistemalega.dao.MateriasDao;
+import com.sistemalega.dao.UniversidadesDao;
 import com.sistemalega.modelo.Alumno;
 import com.sistemalega.modelo.Carrera;
+import com.sistemalega.modelo.Grado;
+import com.sistemalega.modelo.Grupo;
+import com.sistemalega.modelo.Materia;
+import com.sistemalega.modelo.Universidad;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -47,6 +55,18 @@ public class PrincipalController extends HttpServlet {
                 case "carreras":
                     carreras(request, response);
                     break;
+                case "grados":
+                    grados(request, response);
+                    break;
+                case "grupos":
+                    grupos(request, response);
+                    break;
+                case "materias":
+                    materias(request, response);
+                    break;
+                case "universidades":
+                    universidades(request, response);
+                    break;
                 default:
                     break;
             }
@@ -72,12 +92,44 @@ public class PrincipalController extends HttpServlet {
         request.setAttribute("lista", listaArticulos);
         dispatcher.forward(request, response);
     }
-    
-     private void carreras(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        
+
+    private void carreras(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Carreras/carrerasPrincipal.jsp");
         List<Carrera> listaCarreras = new CarrerasDao().listarCarreras();
         request.setAttribute("lista", listaCarreras);
+        dispatcher.forward(request, response);
+    }
+
+    private void grados(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grados/gradosPrincipal.jsp");
+        List<Grado> listaGrados = new GradosDao().listarGrados();
+        request.setAttribute("lista", listaGrados);
+        dispatcher.forward(request, response);
+    }
+
+    private void grupos(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Grupos/gruposPrincipal.jsp");
+        List<Grupo> listaGrupos = new GruposDao().listarGrupos();
+        request.setAttribute("lista", listaGrupos);
+        dispatcher.forward(request, response);
+    }
+
+    private void materias(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Materias/materiasPrincipal.jsp");
+        List<Materia> listaMaterias = new MateriasDao().listarMaterias();
+        request.setAttribute("lista", listaMaterias);
+        dispatcher.forward(request, response);
+    }
+
+    private void universidades(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Vista/Universidades/universidadesPrincipal.jsp");
+        List<Universidad> listaUniversidades = new UniversidadesDao().listarUniversidades();
+        request.setAttribute("lista", listaUniversidades);
         dispatcher.forward(request, response);
     }
 

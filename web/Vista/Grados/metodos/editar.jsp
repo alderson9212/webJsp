@@ -5,40 +5,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Actualizar Alumno</title>
+<title>Actualizar Grados</title>
 </head>
 <body>
-<h1>Actualizar Datos Alumno</h1>
-	<form action="alumnos?action=edit" method="post" >
+<h1>Actualizar Datos Grados</h1>
+	<form action="grados?action=edit" method="post" >
 		<table>
 			<tr>
 				<td><label>Id</label></td>
-				<td><input type="text" name="id" value="<c:out value="${alumno.id}"></c:out>" ></td>
+				<td><input type="text" name="id" value="<c:out value="${grado.id}"></c:out>" ></td>
 			</tr>
 			<tr>
-				<td><label>Id_Materia</label></td>
-				<td><input type="text" name="idmateria" value='<c:out value="${alumno.idMateria}"></c:out>' ></td>
-			</tr>
-			<tr>
-				<td><label>Username</label></td>
-				<td><input type="text" name="username" value='<c:out value="${alumno.username}"></c:out>' ></td>
+				<td><label>Id_Carrera</label></td>
+				<td><input type="text" name="idcarrera" value='<c:out value="${grado.idCarrera}"></c:out>' ></td>
 			</tr>
                         <tr>
 				<td><label>Nombre</label></td>
-				<td><input type="text" name="nombre" value='<c:out value="${alumno.nombre}"></c:out>' ></td>
+				<td><input type="text" name="nombre" value='<c:out value="${grado.nombre}"></c:out>' ></td>
 			</tr>
-			<tr>
-				<td><label>ApellidoPaterno</label></td>
-				<td><input type="text" name="appaterno" value='<c:out value="${alumno.apellidoPaterno}"></c:out>' ></td>
-			</tr>
-			<tr>
-				<td><label>ApellidoMaterno</label></td>
-				<td><input type="text" name="apmaterno" value='<c:out value="${alumno.apellidoMaterno}"></c:out>' ></td>
-			</tr>
-			
 			<tr>
 				<td><label>Estatus</label></td>
-				<td><input type="text" name="estatus" value='<c:out value="${alumno.estatus}"></c:out>' ></td>
+				<td><input type="text" name="estatus" value='<c:out value="${grado.estatus}"></c:out>' ></td>
 			</tr>
 		</table>
 	

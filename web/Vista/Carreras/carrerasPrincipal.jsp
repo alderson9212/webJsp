@@ -12,7 +12,7 @@
 	      <h1>ADMINISTRACION CARRRERAS</h1>
 	<table>
 		<tr>
-                    <td><button onclick="window.history.go(-1)" >Ir al menú</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="alumnos?action=formregister">Insertar</a></td>
+                    <td><button onclick="window.history.go(-1)" >Ir al menú</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="carreras?action=formregister">Insertar</a></td>
 		</tr>
 	</table>
 	
@@ -27,7 +27,7 @@
 		<c:forEach var="carrera" items="${lista}">
 			<tr>
 				<td><c:out value="${carrera.id}"/></td>
-				<td><c:out value="${carrera.idUniversida}"/></td>
+				<td><c:out value="${carrera.idUniversidad}"/></td>
 				<td><c:out value="${carrera.nombre}"/></td>
 				<td><c:out value="${carrera.estatus}"/></td>
 				<td><a href="carreras?action=showedit&id=<c:out value="${carrera.id}" />">Editar</a></td>
